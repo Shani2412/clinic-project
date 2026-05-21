@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om Sai Dentist Clinic – Nandasan, Mehsana</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0B6E68;
+    --teal-light: #E6F5F4;
+    --teal-mid: #1D9E8F;
+    --gold: #C9A84C;
+    --gold-light: #FBF5E8;
+    --white: #FFFFFF;
+    --off-white: #F9FAFB;
+    --text-dark: #1A1A2E;
+    --text-mid: #4A5568;
+    --text-light: #718096;
+    --border: #E2E8F0;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  /* ── EDIT MODE ── */
+  [contenteditable="true"] { outline: 2px dashed rgba(11,110,104,0.4); border-radius: 4px; padding: 2px 4px; cursor: text; }
+  [contenteditable="true"]:focus { outline: 2px solid var(--teal); background: rgba(11,110,104,0.04); }
+  .edit-hint { display: none; font-size: 11px; color: var(--teal); margin-top: 4px; }
+  body.edit-mode .edit-hint { display: block; }
+  body.edit-mode .editable-label::after { content: ' ✏️'; font-size: 12px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 70px; transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon { width: 44px; height: 44px; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .logo-text .name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--teal); }
+  .logo-text .sub { font-size: 11px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; color: var(--text-mid); font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .edit-toggle-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--text-mid);
+    padding: 8px 14px; border-radius: 50px; font-size: 13px; cursor: pointer;
+    font-family: var(--font-body); transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .edit-toggle-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .edit-toggle-btn.active { background: var(--teal-light); border-color: var(--teal); color: var(--teal); }
+  .nav-cta {
+    background: var(--teal); color: white; border: none; cursor: pointer;
+    padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    font-family: var(--font-body); transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .nav-cta:hover { background: #094f4a; transform: translateY(-1px); }
+
+  /* hamburger */
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; gap: 5px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 99;
+    background: white; border-bottom: 1px solid var(--border); padding: 20px 5%;
+    flex-direction: column; gap: 16px; box-shadow: var(--shadow);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; color: var(--text-mid); font-size: 16px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    background: linear-gradient(135deg, #f0faf9 0%, #fff 55%, #fafbff 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; right: -200px; top: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(11,110,104,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content { max-width: 540px; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--teal-light); color: var(--teal);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 24px;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--teal-mid); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+  .hero h1 { font-family: var(--font-display); font-size: 62px; line-height: 1.1; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; }
+  .hero h1 span { color: var(--teal); }
+  .hero p { font-size: 16px; line-height: 1.7; color: var(--text-mid); margin-bottom: 36px; max-width: 440px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--teal); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; box-shadow: 0 4px 16px rgba(11,110,104,0.3); }
+  .btn-primary:hover { background: #094f4a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,110,104,0.35); }
+  .btn-outline { background: transparent; color: var(--teal); padding: 14px 32px; border-radius: 50px; text-decoration: none; font-size: 15px; font-weight: 500; border: 2px solid var(--teal); transition: all 0.2s; }
+  .btn-outline:hover { background: var(--teal-light); }
+  .hero-visual { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 480px; z-index: 1; }
+  .hero-img-wrap { width: 100%; aspect-ratio: 4/3; border-radius: 24px; overflow: hidden; background: var(--teal-light); position: relative; box-shadow: var(--shadow-lg); }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--teal); cursor: pointer; transition: background 0.2s; }
+  .hero-img-placeholder:hover { background: rgba(11,110,104,0.05); }
+  .hero-img-placeholder p { font-size: 14px; color: var(--text-light); }
+  .stats-row { display: flex; gap: 24px; margin-top: 32px; padding: 20px 24px; background: white; border-radius: var(--radius); box-shadow: var(--shadow); width: fit-content; }
+  .stat { text-align: center; }
+  .stat .num { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--teal); line-height: 1; }
+  .stat .lbl { font-size: 11px; color: var(--text-light); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-divider { width: 1px; background: var(--border); }
+
+  /* ── SECTION ── */
+  section { padding: 90px 5%; }
+  .section-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); font-weight: 500; margin-bottom: 10px; }
+  .section-title { font-family: var(--font-display); font-size: 44px; font-weight: 700; line-height: 1.15; color: var(--text-dark); margin-bottom: 16px; }
+  .section-sub { font-size: 16px; color: var(--text-mid); line-height: 1.7; max-width: 520px; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: var(--off-white); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 50px; }
+  .service-card { background: white; border-radius: var(--radius); padding: 30px; border: 1px solid var(--border); transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; }
+  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--teal); transform: scaleX(0); transition: transform 0.3s; }
+  .service-card:hover { box-shadow: var(--shadow); border-color: var(--teal); transform: translateY(-4px); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon { width: 54px; height: 54px; background: var(--teal-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; transition: transform 0.3s; }
+  .service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
+  .service-card h3 { font-family: var(--font-display); font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+  .service-card p { font-size: 14px; color: var(--text-mid); line-height: 1.65; margin-bottom: 14px; }
+  .service-price-tag { display: inline-block; background: var(--teal-light); color: var(--teal); font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 50px; }
+  .price-toggle-btn { background: transparent; border: 1px solid var(--border); padding: 8px 18px; border-radius: 50px; font-size: 13px; cursor: pointer; font-family: var(--font-body); color: var(--text-mid); margin-top: 24px; transition: all 0.2s; }
+  .price-toggle-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ── ABOUT ── */
+  .about-wrap { display: flex; gap: 80px; align-items: center; }
+  .about-img-col { flex: 0 0 420px; }
+  .about-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .about-img-slot { border-radius: var(--radius); overflow: hidden; background: var(--teal-light); aspect-ratio: 1; position: relative; }
+  .about-img-slot.tall { grid-row: span 2; aspect-ratio: auto; min-height: 280px; }
+  .about-img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-upload-btn { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; background: var(--teal-light); transition: background 0.2s; border: 2px dashed rgba(11,110,104,0.3); border-radius: var(--radius); }
+  .img-upload-btn:hover { background: rgba(11,110,104,0.1); }
+  .img-upload-btn span { font-size: 12px; color: var(--teal); font-weight: 500; }
+  .about-content { flex: 1; }
+  .about-content .section-sub { max-width: 100%; margin-bottom: 24px; }
+  .about-feature { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+  .about-feature .check { width: 24px; height: 24px; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .about-feature .check svg { width: 12px; height: 12px; }
+  .about-feature p { font-size: 15px; color: var(--text-mid); line-height: 1.6; }
+  .about-feature p strong { color: var(--text-dark); font-weight: 500; }
+
+  /* ── GALLERY ── */
+  .gallery-bg { background: var(--teal); }
+  .gallery-bg .section-label { color: var(--teal-light); }
+  .gallery-bg .section-title { color: white; }
+  .gallery-bg .section-sub { color: rgba(255,255,255,0.7); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 200px 200px; gap: 12px; margin-top: 44px; }
+  .gallery-slot { border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.1); position: relative; cursor: pointer; transition: transform 0.2s; }
+  .gallery-slot:hover { transform: scale(1.02); }
+  .gallery-slot.wide { grid-column: span 2; }
+  .gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-upload { inset: 0; position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px dashed rgba(255,255,255,0.3); border-radius: 10px; transition: background 0.2s; }
+  .gallery-upload:hover { background: rgba(255,255,255,0.08); }
+  .gallery-upload span { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-bg { background: var(--gold-light); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 44px; }
+  .review-card { background: white; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); transition: transform 0.2s; }
+  .review-card:hover { transform: translateY(-3px); }
+  .stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-card p { font-size: 15px; color: var(--text-mid); line-height: 1.65; margin-bottom: 18px; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .reviewer-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; }
+  .reviewer-name { font-size: 14px; font-weight: 500; }
+  .reviewer-loc { font-size: 12px; color: var(--text-light); }
+
+  /* ── CONTACT ── */
+  .contact-wrap { display: flex; gap: 60px; align-items: flex-start; }
+  .contact-info { flex: 1; }
+  .contact-card { background: var(--teal-light); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; display: flex; gap: 16px; align-items: flex-start; }
+  .contact-card .icon { width: 42px; height: 42px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+  .contact-card h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-light); margin-bottom: 4px; }
+  .contact-card p { font-size: 15px; color: var(--text-dark); line-height: 1.5; }
+  .contact-form { flex: 1; background: var(--off-white); border-radius: var(--radius); padding: 36px; }
+  .contact-form h3 { font-family: var(--font-display); font-size: 28px; font-weight: 600; margin-bottom: 24px; }
+  .form-row { display: flex; gap: 14px; }
+  .form-group { flex: 1; margin-bottom: 16px; }
+  .form-group label { font-size: 13px; color: var(--text-mid); font-weight: 500; display: block; margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: var(--font-body); background: white; color: var(--text-dark); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(11,110,104,0.1); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit { width: 100%; background: var(--teal); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 500; font-family: var(--font-body); cursor: pointer; transition: all 0.2s; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .form-submit:hover { background: #094f4a; transform: translateY(-1px); }
+  .form-submit.loading { opacity: 0.7; pointer-events: none; }
+
+  /* ── HOURS TABLE ── */
+  .hours-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .hours-table tr { border-bottom: 1px solid var(--border); }
+  .hours-table td { padding: 8px 0; font-size: 14px; }
+  .hours-table td:last-child { text-align: right; color: var(--teal); font-weight: 500; }
+  .hours-table tr.closed td:last-child { color: #e24b4a; }
+  .map-frame { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-top: 32px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--text-dark); color: rgba(255,255,255,0.7); padding: 50px 5% 30px; }
+  .footer-top { display: flex; gap: 60px; flex-wrap: wrap; margin-bottom: 40px; }
+  .footer-brand .logo-text .name { color: white; }
+  .footer-brand .logo-text .sub { color: rgba(255,255,255,0.4); }
+  .footer-brand p { font-size: 14px; line-height: 1.65; margin-top: 14px; max-width: 260px; }
+  .footer-col h4 { color: white; font-size: 14px; font-weight: 500; margin-bottom: 14px; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal-mid); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+
+  /* ── WHATSAPP FLOATING ── */
+  .whatsapp-btn { position: fixed; bottom: 28px; right: 28px; z-index: 99; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.5); text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+  .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
+  .whatsapp-btn svg { width: 30px; height: 30px; fill: white; }
+  .whatsapp-tooltip { position: absolute; right: 68px; background: #333; color: white; font-size: 13px; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+  .whatsapp-btn:hover .whatsapp-tooltip { opacity: 1; }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 100px; right: 28px; z-index: 200; background: var(--teal); color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none; max-width: 280px; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── MODAL ── */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .modal-backdrop.open { display: flex; }
+  .modal-box { background: white; border-radius: 20px; padding: 40px; max-width: 480px; width: 90%; position: relative; animation: modalIn 0.3s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: var(--off-white); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: var(--text-mid); transition: background 0.2s; }
+  .modal-close:hover { background: var(--border); }
+  .modal-box h2 { font-family: var(--font-display); font-size: 28px; margin-bottom: 8px; }
+  .modal-box p { color: var(--text-mid); font-size: 15px; margin-bottom: 20px; }
+  .success-icon { width: 60px; height: 60px; background: #e6f9f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; }
+
+  /* ── AI CHAT BOT ── */
+  .chatbot-btn { position: fixed; bottom: 96px; right: 28px; z-index: 99; width: 56px; height: 56px; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(11,110,104,0.4); border: none; cursor: pointer; transition: transform 0.2s; font-size: 24px; }
+  .chatbot-btn:hover { transform: scale(1.1); }
+  .chatbot-window { position: fixed; bottom: 164px; right: 28px; z-index: 98; width: 320px; background: white; border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
+  .chatbot-window.open { display: flex; }
+  .chatbot-header { background: var(--teal); color: white; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+  .chatbot-avatar { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .chatbot-header-info { flex: 1; }
+  .chatbot-header-info strong { font-size: 14px; display: block; }
+  .chatbot-header-info span { font-size: 12px; opacity: 0.8; }
+  .chatbot-online { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; margin-right: 4px; display: inline-block; }
+  .chatbot-messages { flex: 1; padding: 16px; max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
+  .chat-msg.bot { background: var(--teal-light); color: var(--text-dark); border-bottom-left-radius: 4px; align-self: flex-start; }
+  .chat-msg.user { background: var(--teal); color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+  .chatbot-quick { padding: 8px 16px; display: flex; gap: 6px; flex-wrap: wrap; border-top: 1px solid var(--border); }
+  .quick-btn { background: var(--teal-light); color: var(--teal); border: none; padding: 6px 12px; border-radius: 50px; font-size: 12px; cursor: pointer; font-family: var(--font-body); transition: background 0.2s; }
+  .quick-btn:hover { background: rgba(11,110,104,0.15); }
+  .chatbot-input-row { padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid var(--border); }
+  .chatbot-input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 50px; font-size: 14px; font-family: var(--font-body); outline: none; }
+  .chatbot-input:focus { border-color: var(--teal); }
+  .chatbot-send { background: var(--teal); color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .chatbot-send:hover { background: #094f4a; }
+
+  /* ── SCROLL ANIMATE ── */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  input[type="file"] { display: none; }
+
+@media (max-width: 900px) {
+
+  nav {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .logo {
+    gap: 8px;
+    max-width: 70%;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .logo-text .name {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .logo-text .sub {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-right {
+    gap: 6px;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .edit-toggle-btn {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .edit-toggle-btn span {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    top: 64px;
+    padding: 16px;
+  }
+
+  .mobile-menu a {
+    font-size: 15px;
+    padding: 12px 0;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 100px 20px 50px;
+    text-align: center;
+    min-height: auto;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    line-height: 1.15;
+  }
+
+  .hero p {
+    max-width: 100%;
+    font-size: 15px;
+  }
+
+  .hero-btns {
+    justify-content: center;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-visual {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .stats-row {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px;
+    margin-top: 24px;
+  }
+
+  .stat .num {
+    font-size: 22px;
+  }
+
+  .stat .lbl {
+    font-size: 9px;
+  }
+
+  .section-title {
+    font-size: 34px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+  }
+
+  .services-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-wrap,
+  .contact-wrap,
+  .footer-top {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .about-img-col {
+    width: 100%;
+    flex: none;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .gallery-slot.wide {
+    grid-column: span 2;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .chatbot-window {
+    right: 10px;
+    left: 10px;
+    width: auto;
+    bottom: 150px;
+  }
+
+  .whatsapp-btn {
+    width: 52px;
+    height: 52px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .chatbot-btn {
+    width: 52px;
+    height: 52px;
+    right: 16px;
+    bottom: 80px;
+  }
+}
+```
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="logo">
+    <div class="logo-icon">🦷</div>
+    <div class="logo-text">
+      <div class="name">Samarth dental care</div>
+      <div class="sub">Vijapur</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="edit-toggle-btn" id="editToggle" onclick="toggleEditMode()" title="Edit clinic info">
+      ✏️ <span>Edit Info</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#contact" class="nav-cta">Book Appointment</a>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact & Appointment</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Trusted Dental Care Since 2010</div>
+    <h1>Your Smile,<br>Our <span>Passion</span></h1>
+    <p>Experience world-class dental care in the heart of Nandasan. From routine check-ups to advanced cosmetic dentistry — all under one roof.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book Appointment</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="num">5000+</div><div class="lbl">Patients Treated</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="num">15+</div><div class="lbl">Years Experience</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="num">4.9★</div><div class="lbl">Patient Rating</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-wrap" id="hero-img-wrap">
+      <div class="hero-img-placeholder" id="hero-placeholder" onclick="document.getElementById('hero-upload').click()">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        <p>Click to add Clinic Photo</p>
+      </div>
+    </div>
+    <input type="file" id="hero-upload" accept="image/*" onchange="loadHeroImage(this)">
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div style="text-align:center; margin-bottom: 4px;">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Complete Dental Services</h2>
+    <p class="section-sub" style="margin: 0 auto;">Modern equipment, experienced hands, and a caring approach — everything you need for a healthy smile.</p>
+    <button class="price-toggle-btn" onclick="togglePrices()">💰 <span id="price-btn-text">Show Prices</span></button>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up" onclick="bookService('General Check-up')">
+      <div class="service-icon">🦷</div>
+      <h3>General Dentistry</h3>
+      <p>Routine check-ups, dental cleaning, fillings, and preventive care to keep your teeth healthy and strong.</p>
+      <div class="service-price-tag" id="price-general" style="display:none">₹200 – ₹800</div>
+    </div>
+    <div class="service-card fade-up" onclick="bookService('Teeth Whitening')">
+      <div class="service-icon">✨</div>
+      <h3>Cosmetic Dentistry</h3>
+      <p>Teeth whitening, veneers, and smile makeovers to give you the confident smile you deserve.</p>
+      <div class="service-price-tag" id="price-cosmetic" style="display:none">₹3,000 – ₹15,000</div>
+    </div>
+    <div class="service-card fade-up" onclick="bookService('Root Canal Treatment')">
+      <div class="service-icon">🔧</div>
+      <h3>Root Canal Treatment</h3>
+      <p>Pain-free root canal procedures using modern techniques to save your natural teeth.</p>
+      <div class="service-price-tag" id="price-rct" style="display:none">₹2,500 – ₹6,000</div>
+    </div>
+    <div class="service-card fade-up" onclick="bookService('Orthodontics / Braces')">
+      <div class="service-icon">📐</div>
+      <h3>Orthodontics & Braces</h3>
+      <p>Metal braces, ceramic braces, and invisible aligners for a perfectly aligned smile.</p>
+      <div class="service-price-tag" id="price-ortho" style="display:none">₹15,000 – ₹50,000</div>
+    </div>
+    <div class="service-card fade-up" onclick="bookService('Dental Implants')">
+      <div class="service-icon">🦴</div>
+      <h3>Dental Implants</h3>
+      <p>Permanent tooth replacement solutions that look, feel, and function like your natural teeth.</p>
+      <div class="service-price-tag" id="price-implant" style="display:none">₹25,000 – ₹60,000</div>
+    </div>
+    <div class="service-card fade-up" onclick="bookService('Pediatric Dentistry')">
+      <div class="service-icon">👶</div>
+      <h3>Pediatric Dentistry</h3>
+      <p>Gentle, child-friendly dental care to ensure your little ones grow up with healthy smiles.</p>
+      <div class="service-price-tag" id="price-pedo" style="display:none">₹300 – ₹2,000</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-img-col">
+      <div class="about-img-grid">
+        <div class="about-img-slot tall" id="about-slot-1">
+          <label class="img-upload-btn" for="about-upload-1">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B6E68" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+            <span>Add Photo</span>
+          </label>
+          <input type="file" id="about-upload-1" accept="image/*" onchange="loadImageSlot(this,'about-slot-1')">
+        </div>
+        <div class="about-img-slot" id="about-slot-2">
+          <label class="img-upload-btn" for="about-upload-2">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B6E68" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+            <span>Add Photo</span>
+          </label>
+          <input type="file" id="about-upload-2" accept="image/*" onchange="loadImageSlot(this,'about-slot-2')">
+        </div>
+        <div class="about-img-slot" id="about-slot-3">
+          <label class="img-upload-btn" for="about-upload-3">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B6E68" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+            <span>Add Photo</span>
+          </label>
+          <input type="file" id="about-upload-3" accept="image/*" onchange="loadImageSlot(this,'about-slot-3')">
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="section-label">About Us</p>
+      <h2 class="section-title">Caring for Smiles in Mehsana</h2>
+      <p class="section-sub" contenteditable="false" id="about-desc">At Om Sai Dentist Clinic, we believe that a healthy smile transforms lives. With over 15 years of serving patients in Nandasan and across Mehsana district, we combine expertise with compassion.</p>
+      <div class="about-feature">
+        <div class="check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <p><strong contenteditable="false" id="doctor-name">Dr. [Your Name] – BDS, MDS</strong> – Experienced specialist with advanced training in cosmetic and restorative dentistry.</p>
+      </div>
+      <div class="about-feature">
+        <div class="check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <p><strong>Modern Equipment</strong> – Digital X-rays, laser treatment tools, and sterilized environment for safe procedures.</p>
+      </div>
+      <div class="about-feature">
+        <div class="check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <p><strong>Affordable Pricing</strong> – Quality dental care within your budget. EMI options available for major treatments.</p>
+      </div>
+      <div class="about-feature">
+        <div class="check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <p><strong>Emergency Services</strong> – Same-day emergency appointments available for urgent dental issues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-bg" id="gallery">
+  <p class="section-label">Clinic Gallery</p>
+  <h2 class="section-title">Our Clinic & Facilities</h2>
+  <p class="section-sub">Click any slot below to add photos of your clinic, team, and happy patients.</p>
+  <div class="gallery-grid" id="gallery-grid">
+    <div class="gallery-slot wide" id="g0">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-0').click()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        <span>Add Main Photo</span>
+      </div>
+      <input type="file" id="g-upload-0" accept="image/*" onchange="loadGalleryImg(this,0)">
+    </div>
+    <div class="gallery-slot" id="g1">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-1').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+        <span>Photo 2</span>
+      </div>
+      <input type="file" id="g-upload-1" accept="image/*" onchange="loadGalleryImg(this,1)">
+    </div>
+    <div class="gallery-slot" id="g2">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-2').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+        <span>Photo 3</span>
+      </div>
+      <input type="file" id="g-upload-2" accept="image/*" onchange="loadGalleryImg(this,2)">
+    </div>
+    <div class="gallery-slot wide" id="g3">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-3').click()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        <span>Add Wide Photo</span>
+      </div>
+      <input type="file" id="g-upload-3" accept="image/*" onchange="loadGalleryImg(this,3)">
+    </div>
+    <div class="gallery-slot" id="g4">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-4').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+        <span>Photo 5</span>
+      </div>
+      <input type="file" id="g-upload-4" accept="image/*" onchange="loadGalleryImg(this,4)">
+    </div>
+    <div class="gallery-slot" id="g5">
+      <div class="gallery-upload" onclick="document.getElementById('g-upload-5').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+        <span>Photo 6</span>
+      </div>
+      <input type="file" id="g-upload-5" accept="image/*" onchange="loadGalleryImg(this,5)">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg">
+  <div style="text-align:center;">
+    <p class="section-label">Patient Reviews</p>
+    <h2 class="section-title">What Our Patients Say</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p>"Best dental clinic in Mehsana! The doctor is very experienced and the staff is so kind. My root canal was completely painless. Highly recommend to everyone."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:#E6F5F4;color:#0B6E68;">RV</div>
+        <div><div class="reviewer-name">Rajesh Vora</div><div class="reviewer-loc">Nandasan, Mehsana</div></div>
+      </div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p>"My kids love coming here! Dr. Sahib makes them so comfortable. Clean clinic, modern equipment, and very affordable. We've been regular patients for 5 years."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:#FBF5E8;color:#C9A84C;">PM</div>
+        <div><div class="reviewer-name">Priya Mehta</div><div class="reviewer-loc">Visnagar, Mehsana</div></div>
+      </div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p>"Got my teeth whitening done and the results are amazing. Professional service at a great price. The entire process was smooth and the team is very knowledgeable."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:#F4F4FF;color:#5349B7;">JP</div>
+        <div><div class="reviewer-name">Jigar Patel</div><div class="reviewer-loc">Mehsana City</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--off-white);">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Visit Us Today</h2>
+      <div class="contact-card">
+        <div class="icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p contenteditable="false" id="clinic-address">Om Sai Dentist Clinic<br>Nandasan, Mehsana – 384255<br>Gujarat, India</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📞</div>
+        <div>
+          <h4>Phone / WhatsApp</h4>
+          <p contenteditable="false" id="clinic-phone">+91 XXXXX XXXXX</p>
+          <p style="font-size:12px;color:var(--text-light);margin-top:4px;">Click "Edit Info" in nav to update phone</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="icon">🕐</div>
+        <div>
+          <h4>Clinic Hours</h4>
+          <table class="hours-table">
+            <tr><td>Monday – Saturday</td><td>9:00 AM – 1:00 PM</td></tr>
+            <tr><td></td><td>4:00 PM – 8:00 PM</td></tr>
+            <tr class="closed"><td>Sunday</td><td>Closed</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3665.123!2d72.4166!3d23.6011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c451f4a53791d%3A0xddf4b9d6e0d72e4e!2sNandasan%2C+Gujarat!5e0!3m2!1sen!2sin!4v1620000000000" width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Book an Appointment</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="f-name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address (Optional)</label>
+        <input type="email" id="f-email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Select Service</label>
+        <select id="f-service">
+          <option>General Check-up</option>
+          <option>Teeth Cleaning</option>
+          <option>Root Canal Treatment</option>
+          <option>Tooth Extraction</option>
+          <option>Teeth Whitening</option>
+          <option>Dental Implants</option>
+          <option>Orthodontics / Braces</option>
+          <option>Pediatric Dentistry</option>
+          <option>Emergency Consultation</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input type="date" id="f-date">
+        </div>
+        <div class="form-group">
+          <label>Preferred Time</label>
+          <select id="f-time">
+            <option>Morning (9AM–1PM)</option>
+            <option>Evening (4PM–8PM)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message (Optional)</label>
+        <textarea id="f-message" placeholder="Any specific concerns or questions..."></textarea>
+      </div>
+      <button class="form-submit" id="submitBtn" onclick="handleSubmit()">
+        <span id="submit-text">Request Appointment →</span>
+      </button>
+      <p style="font-size:12px;color:var(--text-light);margin-top:10px;text-align:center;">We'll confirm your appointment via WhatsApp/Call within 2 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">🦷</div>
+        <div class="logo-text">
+          <div class="name">Om Sai Dentist</div>
+          <div class="sub">Nandasan, Mehsana</div>
+        </div>
+      </a>
+      <p>Providing compassionate, high-quality dental care to families in Nandasan and Mehsana district since 2010.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#services">Our Services</a>
+      <a href="#about">About Clinic</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#">General Dentistry</a>
+      <a href="#">Cosmetic Dentistry</a>
+      <a href="#">Root Canal</a>
+      <a href="#">Dental Implants</a>
+      <a href="#">Orthodontics</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#">📍 Nandasan, Mehsana</a>
+      <a href="#" id="footer-phone">📞 +91 XXXXX XXXXX</a>
+      <a href="#">⏰ Mon–Sat: 9AM–8PM</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Om Sai Dentist Clinic. All rights reserved.</span>
+    <span style="color: rgba(255,255,255,0.4);">Nandasan, Mehsana, Gujarat</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/91XXXXXXXXXX" id="whatsapp-link" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+  <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- CHATBOT BUTTON -->
+<button class="chatbot-btn" onclick="toggleChatbot()" title="Ask us anything">💬</button>
+
+<!-- CHATBOT WINDOW -->
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar">🦷</div>
+    <div class="chatbot-header-info">
+      <strong>Om Sai Dental Assistant</strong>
+      <span><span class="chatbot-online"></span>Online Now</span>
+    </div>
+    <button onclick="toggleChatbot()" style="background:none;border:none;color:white;cursor:pointer;font-size:18px;">✕</button>
+  </div>
+  <div class="chatbot-messages" id="chat-messages">
+    <div class="chat-msg bot">Namaste! 🙏 I'm your dental assistant. How can I help you today?</div>
+  </div>
+  <div class="chatbot-quick">
+    <button class="quick-btn" onclick="quickChat('Book appointment')">📅 Book</button>
+    <button class="quick-btn" onclick="quickChat('Clinic timings?')">🕐 Timings</button>
+    <button class="quick-btn" onclick="quickChat('Treatment cost?')">💰 Costs</button>
+    <button class="quick-btn" onclick="quickChat('Emergency dentist?')">🆘 Emergency</button>
+  </div>
+  <div class="chatbot-input-row">
+    <input class="chatbot-input" id="chat-input" placeholder="Type your question..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chatbot-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-backdrop" id="successModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="success-icon">✅</div>
+    <h2 style="text-align:center;font-family:var(--font-display);">Appointment Requested!</h2>
+    <p style="text-align:center;color:var(--text-mid);">Thank you! We'll confirm your appointment via WhatsApp or call within 2 hours during clinic hours.</p>
+    <div style="background:var(--teal-light);border-radius:10px;padding:16px;margin-bottom:20px;">
+      <p id="modal-summary" style="font-size:14px;color:var(--teal);"></p>
+    </div>
+    <a id="modal-whatsapp" href="#" target="_blank" class="btn-primary" style="display:block;text-align:center;border-radius:8px;">Also send via WhatsApp →</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── PHONE NUMBER (update this) ──
+let clinicPhone = '91XXXXXXXXXX';
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ── EDIT MODE ──
+let editMode = false;
+const editableIds = ['about-desc','doctor-name','clinic-address','clinic-phone'];
+
+function toggleEditMode() {
+  editMode = !editMode;
+  const btn = document.getElementById('editToggle');
+  btn.classList.toggle('active', editMode);
+  btn.innerHTML = editMode ? '✅ <span>Save Info</span>' : '✏️ <span>Edit Info</span>';
+  document.body.classList.toggle('edit-mode', editMode);
+
+  editableIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.contentEditable = editMode ? 'true' : 'false';
+  });
+
+  if (!editMode) {
+    // Update phone in WhatsApp link when saved
+    const phone = document.getElementById('clinic-phone').innerText.replace(/\D/g,'');
+    if (phone.length >= 10) {
+      clinicPhone = phone.startsWith('91') ? phone : '91' + phone;
+      document.getElementById('whatsapp-link').href = 'https://wa.me/' + clinicPhone;
+      document.getElementById('footer-phone').textContent = '📞 ' + document.getElementById('clinic-phone').innerText;
+    }
+    showToast('✅ Changes saved!');
+  } else {
+    showToast('✏️ Click on text to edit clinic info');
+  }
+}
+
+// ── PRICE TOGGLE ──
+let pricesVisible = false;
+const priceIds = ['price-general','price-cosmetic','price-rct','price-ortho','price-implant','price-pedo'];
+function togglePrices() {
+  pricesVisible = !pricesVisible;
+  priceIds.forEach(id => {
+    document.getElementById(id).style.display = pricesVisible ? 'inline-block' : 'none';
+  });
+  document.getElementById('price-btn-text').textContent = pricesVisible ? 'Hide Prices' : 'Show Prices';
+}
+
+// ── BOOK SERVICE (auto-fills form) ──
+function bookService(service) {
+  document.getElementById('f-service').value = service;
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  showToast('📋 Service selected! Fill in your details below.');
+}
+
+// ── IMAGE UPLOAD ──
+function loadHeroImage(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const wrap = document.getElementById('hero-img-wrap');
+    const ph = wrap.querySelector('.hero-img-placeholder');
+    if (ph) ph.style.display = 'none';
+    let img = wrap.querySelector('img');
+    if (!img) { img = document.createElement('img'); wrap.appendChild(img); }
+    img.src = e.target.result;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    showToast('📸 Hero photo added!');
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function loadImageSlot(input, slotId) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const slot = document.getElementById(slotId);
+    const label = slot.querySelector('label');
+    if (label) label.style.display = 'none';
+    let img = slot.querySelector('img');
+    if (!img) { img = document.createElement('img'); slot.appendChild(img); }
+    img.src = e.target.result;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;';
+    showToast('📸 Photo added!');
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function loadGalleryImg(input, idx) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const slot = document.getElementById('g' + idx);
+    const uploadDiv = slot.querySelector('.gallery-upload');
+    if (uploadDiv) uploadDiv.style.display = 'none';
+    let img = slot.querySelector('img');
+    if (!img) { img = document.createElement('img'); slot.insertBefore(img, slot.firstChild); }
+    img.src = e.target.result;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    showToast('🖼️ Gallery photo added!');
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ── APPOINTMENT FORM ──
+function handleSubmit() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if (!name) { showToast('⚠️ Please enter your name'); document.getElementById('f-name').focus(); return; }
+  if (!phone) { showToast('⚠️ Please enter your phone number'); document.getElementById('f-phone').focus(); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  document.getElementById('submit-text').textContent = 'Sending...';
+
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    document.getElementById('submit-text').textContent = 'Request Appointment →';
+
+    const service = document.getElementById('f-service').value;
+    const date = document.getElementById('f-date').value;
+    const time = document.getElementById('f-time').value;
+    const message = document.getElementById('f-message').value;
+
+    const summary = `Name: ${name}\nPhone: ${phone}\nService: ${service}${date ? '\nDate: ' + date : ''}\nTime: ${time}`;
+    document.getElementById('modal-summary').innerHTML = summary.replace(/\n/g, '<br>');
+
+    const waText = encodeURIComponent(`Hello Om Sai Dentist Clinic! 🦷\n\nI'd like to book an appointment.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}${date ? '\nDate: ' + date : ''}\nTime: ${time}${message ? '\nNote: ' + message : ''}`);
+    document.getElementById('modal-whatsapp').href = `https://wa.me/${clinicPhone}?text=${waText}`;
+
+    document.getElementById('successModal').classList.add('open');
+  }, 1200);
+}
+
+function closeModal() {
+  document.getElementById('successModal').classList.remove('open');
+}
+document.getElementById('successModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('successModal')) closeModal();
+});
+
+// ── CHATBOT ──
+const chatAnswers = {
+  'book': 'To book an appointment, scroll down to our contact form or click "Book Appointment" in the menu. You can also WhatsApp us directly! 📅',
+  'appointment': 'To book an appointment, scroll down to our contact form or click "Book Appointment" in the menu. You can also WhatsApp us directly! 📅',
+  'timing': 'We are open Monday to Saturday:\n• Morning: 9:00 AM – 1:00 PM\n• Evening: 4:00 PM – 8:00 PM\n\nSunday: Closed 🗓️',
+  'time': 'We are open Monday to Saturday:\n• Morning: 9:00 AM – 1:00 PM\n• Evening: 4:00 PM – 8:00 PM\n\nSunday: Closed 🗓️',
+  'hour': 'We are open Monday to Saturday:\n• Morning: 9:00 AM – 1:00 PM\n• Evening: 4:00 PM – 8:00 PM\n\nSunday: Closed 🗓️',
+  'cost': 'Our approximate pricing:\n• General Check-up: ₹200–₹800\n• Root Canal: ₹2,500–₹6,000\n• Teeth Whitening: ₹3,000–₹15,000\n• Braces: ₹15,000–₹50,000\n• Implants: ₹25,000–₹60,000\n\nFor exact quotes, please visit us! 💰',
+  'price': 'Our approximate pricing:\n• General Check-up: ₹200–₹800\n• Root Canal: ₹2,500–₹6,000\n• Teeth Whitening: ₹3,000–₹15,000\n• Braces: ₹15,000–₹50,000\n• Implants: ₹25,000–₹60,000\n\nFor exact quotes, please visit us! 💰',
+  'fee': 'Our approximate pricing:\n• General Check-up: ₹200–₹800\n• Root Canal: ₹2,500–₹6,000\n• Teeth Whitening: ₹3,000–₹15,000\n\nFor exact quotes, please visit us! 💰',
+  'emergency': 'Yes! We provide same-day emergency appointments. Please call us immediately or WhatsApp for urgent dental issues. 🆘\n\nFor dental pain, broken tooth, or swelling — don\'t wait!',
+  'location': 'We are located at:\n📍 Om Sai Dentist Clinic\nNandasan, Mehsana – 384255\nGujarat, India\n\nGoogle Maps link is on our contact section!',
+  'address': 'We are located at:\n📍 Om Sai Dentist Clinic\nNandasan, Mehsana – 384255\nGujarat, India',
+  'default': 'Thank you for your question! For detailed information, please call us or send a WhatsApp message. Our team will be happy to help! 😊\n\nOr scroll up to book an appointment directly.'
+};
+
+function getBotAnswer(text) {
+  text = text.toLowerCase();
+  for (const key in chatAnswers) {
+    if (key !== 'default' && text.includes(key)) return chatAnswers[key];
+  }
+  return chatAnswers['default'];
+}
+
+function addChatMsg(text, isUser) {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + (isUser ? 'user' : 'bot');
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function quickChat(text) {
+  addChatMsg(text, true);
+  setTimeout(() => addChatMsg(getBotAnswer(text), false), 600);
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addChatMsg(text, true);
+  setTimeout(() => addChatMsg(getBotAnswer(text), false), 700);
+}
+
+function toggleChatbot() {
+  document.getElementById('chatbot').classList.toggle('open');
+}
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Set today as min date
+document.getElementById('f-date').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
